@@ -19,17 +19,27 @@ function PART1() {
   const handleOptionClick = (option: SetStateAction<string>) => {
     setSelectedOption(option);
   };
-  const ishqjaisakuch = useRef(null);
-  const ishqjaisakuch2 = useRef(null);
-  const ishqjaisakuch3 = useRef(null);
 
-  const handleClick = () => {
-    // Accessing the button element using the ref
-    console.log(ishqjaisakuch.current);
-    console.log(ishqjaisakuch2.current);
-    console.log(ishqjaisakuch3.current);
+  const [inputValues, setInputValues] = useState({
+    ishqjaisakuch: "",
+    ishqjaisakuch2: "",
+    ishqjaisakuch3: "",
+  });
+
+  const handleInputChange = (event: { target: { name: any; value: any } }) => {
+    const { name, value } = event.target;
+    setInputValues({ ...inputValues, [name]: value });
   };
 
+  const handleSubmit = () => {
+    // Store values in variables here
+    const value1 = inputValues.ishqjaisakuch;
+    const value2 = inputValues.ishqjaisakuch2;
+    const value3 = inputValues.ishqjaisakuch3;
+
+    // Do something with the values
+    console.log("Submitted values:", value1, value2, value3);
+  };
   const renderImageOption = () => {
     switch (selectedOption) {
       case "generativeFill":
@@ -38,9 +48,9 @@ function PART1() {
             {result ? (
               <CldImage
                 src={result.public_id}
-                alt="uploaded widget"
-                width="500"
-                height="1000"
+                alt="generated content"
+                width="550"
+                height="650"
                 crop="fill"
                 sizes="100vw"
                 fillBackground
@@ -57,12 +67,16 @@ function PART1() {
             {result ? (
               <CldImage
                 src={result.public_id}
-                alt="uploaded widget"
+                alt="generated content"
                 width="500"
                 height="500"
-                recolor={["face", "orange"]}
-                crop="fill"
+                // recolor={["person", "green"]}
+                recolor={[
+                  inputValues.ishqjaisakuch2,
+                  inputValues.ishqjaisakuch3,
+                ]}
                 sizes="100vw"
+                crop="fill"
               />
             ) : (
               <p>Generated Image </p>
@@ -75,11 +89,11 @@ function PART1() {
             {result ? (
               <CldImage
                 src={result.public_id}
-                alt="uploaded widget"
+                alt="generated content"
                 width="500"
                 height="500"
                 crop="fill"
-                remove="person"
+                remove={inputValues.ishqjaisakuch}
                 sizes="100vw"
               />
             ) : (
@@ -93,7 +107,7 @@ function PART1() {
             {result ? (
               <CldImage
                 src={result.public_id}
-                alt="uploaded widget"
+                alt="generated content"
                 width="500"
                 height="500"
                 crop="fill"
@@ -111,11 +125,15 @@ function PART1() {
             {result ? (
               <CldImage
                 src={result.public_id}
-                alt="uploaded widget"
+                alt="generated content"
                 width="500"
                 height="500"
                 crop="fill"
-                replace={["person", "virat kohli"]}
+                // replace={["person", "dog"]}
+                replace={[
+                  inputValues.ishqjaisakuch2,
+                  inputValues.ishqjaisakuch3,
+                ]}
                 sizes="100vw"
               />
             ) : (
@@ -129,7 +147,7 @@ function PART1() {
             {result ? (
               <CldImage
                 src={result.public_id}
-                alt="uploaded widget"
+                alt="generated content"
                 width="500"
                 height="500"
                 restore
@@ -139,10 +157,6 @@ function PART1() {
             ) : (
               <p>Generated Image </p>
             )}
-            {/* <CldImage
-            src="twtgadlggpwjncpegnjw"
-            alt=""
-          /> */}
           </>
         );
       default:
@@ -174,7 +188,7 @@ function PART1() {
               width="500"
               crop="fill"
               height="500"
-              alt="uploaded widget"
+              alt="generated content"
               sizes="100vw"
             />
           ) : (
@@ -198,10 +212,9 @@ function PART1() {
             <p>Remove Object: </p>
             <input
               type="text"
-              value="Button 1"
-              placeholder="Enter the object to remove"
-              ref={ishqjaisakuch}
-              onClick={handleClick}
+              name="ishqjaisakuch"
+              value={inputValues.ishqjaisakuch}
+              onChange={handleInputChange}
             />
           </div>
           <div
@@ -223,12 +236,12 @@ function PART1() {
               }}
             >
               <p>OBJECT: </p>
+
               <input
                 type="text"
-                value="Button 2"
-                placeholder="Enter the object to remove"
-                ref={ishqjaisakuch2}
-                onClick={handleClick}
+                name="ishqjaisakuch2"
+                value={inputValues.ishqjaisakuch2}
+                onChange={handleInputChange}
               />
             </div>
             <div
@@ -241,14 +254,17 @@ function PART1() {
               }}
             >
               <p>REPLACE: </p>
+
               <input
                 type="text"
-                value="Button 3"
-                placeholder="Enter the object to remove"
-                ref={ishqjaisakuch3}
-                onClick={handleClick}
+                name="ishqjaisakuch3"
+                value={inputValues.ishqjaisakuch3}
+                onChange={handleInputChange}
               />
             </div>
+          </div>
+          <div className="IMupload" onClick={handleSubmit}>
+            SUBMIT
           </div>
         </div>
 

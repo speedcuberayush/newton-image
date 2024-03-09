@@ -115,7 +115,8 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  color: #fff;
+  /* color: #fff; */
+  color: #3a3a3a;
   flex-direction: column;
   height: 500px;
 }
