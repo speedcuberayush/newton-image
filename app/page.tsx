@@ -1,113 +1,273 @@
-import Image from "next/image";
+"use client";
+import type { CloudinaryUploadWidgetInfo } from "next-cloudinary";
+import { CldUploadWidget, CldImage } from "next-cloudinary";
 
+import { SetStateAction, useState, useRef } from "react";
+// import Temp from "@/app/Temp";
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <>
+      {/* <Temp /> */}
+      <PART1 />
+    </>
+  );
+}
+
+function PART1() {
+  const [selectedOption, setSelectedOption] = useState("");
+  const [result, setResult] = useState<CloudinaryUploadWidgetInfo | null>();
+  const handleOptionClick = (option: SetStateAction<string>) => {
+    setSelectedOption(option);
+  };
+  const ishqjaisakuch = useRef(null);
+  const ishqjaisakuch2 = useRef(null);
+  const ishqjaisakuch3 = useRef(null);
+
+  const handleClick = () => {
+    // Accessing the button element using the ref
+    console.log(ishqjaisakuch.current);
+    console.log(ishqjaisakuch2.current);
+    console.log(ishqjaisakuch3.current);
+  };
+
+  const renderImageOption = () => {
+    switch (selectedOption) {
+      case "generativeFill":
+        return (
+          <>
+            {result ? (
+              <CldImage
+                src={result.public_id}
+                alt="uploaded widget"
+                width="500"
+                height="1000"
+                crop="fill"
+                sizes="100vw"
+                fillBackground
+                preserveTransformations
+              />
+            ) : (
+              <p>Generated Image </p>
+            )}
+          </>
+        );
+      case "recolor":
+        return (
+          <>
+            {result ? (
+              <CldImage
+                src={result.public_id}
+                alt="uploaded widget"
+                width="500"
+                height="500"
+                recolor={["face", "orange"]}
+                crop="fill"
+                sizes="100vw"
+              />
+            ) : (
+              <p>Generated Image </p>
+            )}
+          </>
+        );
+      case "objectRemover":
+        return (
+          <>
+            {result ? (
+              <CldImage
+                src={result.public_id}
+                alt="uploaded widget"
+                width="500"
+                height="500"
+                crop="fill"
+                remove="person"
+                sizes="100vw"
+              />
+            ) : (
+              <p>Generated Image </p>
+            )}
+          </>
+        );
+      case "removeBackground":
+        return (
+          <>
+            {result ? (
+              <CldImage
+                src={result.public_id}
+                alt="uploaded widget"
+                width="500"
+                height="500"
+                crop="fill"
+                removeBackground
+                sizes="100vw"
+              />
+            ) : (
+              <p>Generated Image </p>
+            )}
+          </>
+        );
+      case "replace":
+        return (
+          <>
+            {result ? (
+              <CldImage
+                src={result.public_id}
+                alt="uploaded widget"
+                width="500"
+                height="500"
+                crop="fill"
+                replace={["person", "virat kohli"]}
+                sizes="100vw"
+              />
+            ) : (
+              <p>Generated Image </p>
+            )}
+          </>
+        );
+      case "restore":
+        return (
+          <>
+            {result ? (
+              <CldImage
+                src={result.public_id}
+                alt="uploaded widget"
+                width="500"
+                height="500"
+                restore
+                crop="fill"
+                sizes="100vw"
+              />
+            ) : (
+              <p>Generated Image </p>
+            )}
+            {/* <CldImage
+            src="twtgadlggpwjncpegnjw"
+            alt=""
+          /> */}
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div
+      className="Imagnify"
+      style={{
+        display: "flex",
+        height: "calc(100vh - 100px)",
+        overflow: "auto",
+        background: "#111216",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-around",
+      }}
+    >
+      <div className="IMheader">
+        AI IMAGE <span style={{ color: "#0096ff" }}>EDITOR</span>
+      </div>
+      <div className="IMmain">
+        <div className="IMOrg IMGCARD ">
+          {result ? (
+            <CldImage
+              src={result.public_id}
+              width="500"
+              crop="fill"
+              height="500"
+              alt="uploaded widget"
+              sizes="100vw"
             />
-          </a>
+          ) : (
+            <p>Uploaded Image </p>
+          )}
         </div>
+        <div className="IMuploader">
+          <div id="option1" className="IMupload">
+            <CldUploadWidget
+              uploadPreset="bixbymessenger"
+              onSuccess={(result) => {
+                setResult(result?.info as CloudinaryUploadWidgetInfo);
+              }}
+            >
+              {({ open }) => {
+                return <button onClick={() => open()}>Upload an Image</button>;
+              }}
+            </CldUploadWidget>
+          </div>
+          <div id="option2">
+            <p>Remove Object: </p>
+            <input
+              type="text"
+              value="Button 1"
+              placeholder="Enter the object to remove"
+              ref={ishqjaisakuch}
+              onClick={handleClick}
+            />
+          </div>
+          <div
+            id="option3"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "250px",
+                justifyContent: "space-between",
+                padding: "20px",
+              }}
+            >
+              <p>OBJECT: </p>
+              <input
+                type="text"
+                value="Button 2"
+                placeholder="Enter the object to remove"
+                ref={ishqjaisakuch2}
+                onClick={handleClick}
+              />
+            </div>
+            <div
+              style={{
+                width: "250px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "20px",
+              }}
+            >
+              <p>REPLACE: </p>
+              <input
+                type="text"
+                value="Button 3"
+                placeholder="Enter the object to remove"
+                ref={ishqjaisakuch3}
+                onClick={handleClick}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="IMGCARD IMgenerated">{renderImageOption()}</div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <nav className="flex justify-center space-x-4">
+        <button onClick={() => handleOptionClick("generativeFill")}>
+          Generative Fill
+        </button>
+        <button onClick={() => handleOptionClick("recolor")}>Recolor</button>
+        <button onClick={() => handleOptionClick("objectRemover")}>
+          Object Remover
+        </button>
+        <button onClick={() => handleOptionClick("removeBackground")}>
+          Remove Background
+        </button>
+        <button onClick={() => handleOptionClick("replace")}>Replace</button>
+        <button onClick={() => handleOptionClick("restore")}>Restore</button>
+      </nav>
+    </div>
   );
 }

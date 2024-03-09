@@ -18,16 +18,104 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #111216;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+@import url("https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+.Imagnify {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background: #111216;
+  color: #fff;
+  font-weight: 400;
+  overflow: auto;
+  /* font-family: "Protest Strike"; */
+}
+
+.IMheader,
+.IMmain {
+  color: #99999f;
+}
+.IMmain {
+  display: flex;
+  /* min-height: 100vh; */
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+.IMOrg,
+.IMgenerated {
+  border: 1px dashed #3a3a3a;
+  height: 700px;
+  width: 650px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.IMheader {
+  /* font-family: "Protest Strike"; */
+  font-size: 30px;
+}
+
+.IMUP {
+  /* font-family: "Protest Strike"; */
+}
+
+.IMmain {
+  /* font-family: "Bebas neue"; */
+}
+
+.IMGCARD {
+  cursor: pointer;
+  /* Add your existing styles here */
+
+  /* Define default border and box shadow */
+  /* border: 1px solid ; */
+  box-shadow: 0 2px 4px rgba(0, 150, 255, 0); /* Change the color and opacity as needed */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Add transition for smooth effect */
+}
+
+.IMGCARD:hover {
+  /* Change border color and box shadow on hover */
+  border-color: #0096ff;
+  box-shadow: 0 4px 8px rgba(0, 150, 255, 0.2); /* Change the color and opacity as needed */
+}
+.INPU {
+  cursor: pointer;
+  margin: 10px;
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
+
+.IMupload {
+  padding: 20px;
+  cursor: pointer;
+  border-radius: 20px;
+  border: 2px dashed #3a3a3a;
+  color: #fff;
+}
+.IMuploader {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #fff;
+  flex-direction: column;
+  height: 500px;
 }
